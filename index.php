@@ -1,3 +1,6 @@
+<?php
+  require_once('config.php');
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,30 +17,22 @@
     <section class="container">
       <article>
         <h1><?php echo gethostname(); ?></h1>
-        <div class="row">
-          <div class="col-md-4 munin_plugin">
-            <h2>Sample</h2>
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-day.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-week.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-month.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-year.png" alt="" />
-          </div>
-          <div class="col-md-4 munin_plugin">
-            <h2>Sample</h2>
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-day.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-week.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-month.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-year.png" alt="" />
-          </div>
-          <div class="col-md-4 munin_plugin">
-            <h2>Sample</h2>
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-day.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-week.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-month.png" alt="" />
-            <img src="http://hom.pdostal.cz/munin/hom/hom/apache_accesses-year.png" alt="" />
-          </div>
-          <hr />
-        </div>
+<?php
+  foreach ($config['url'] as $url) {
+    $i = 0;
+    foreach ($config['service'] as $service) {
+      echo "\t\t<h2>".$service."</h2>\n";
+      if ($i==0) echo "\t\t<div class='row'>\n";
+      echo "\t\t\t<div class='col-md-4 munin_plugin'>\n";
+      foreach ($config['time'] as $time) {
+        echo "\t\t\t\t<img src='".$url."/".$service."-".$time.".png' alt='' />\n";
+      }
+      echo "\t\t\t</div>\n";
+      if ( $i == 2 || $i == count($service)-1 ) echo "\t\t</div>\n";
+      $i++;
+    }
+  }
+?>
       </article>
     </section>
     <script src="js/jquery.js"></script>
