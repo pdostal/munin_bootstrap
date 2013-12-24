@@ -1,4 +1,5 @@
 body { padding-top: 50px; }
+.navbar { max-height: 50px; overflow: hidden; }
 h1.navbar-brand { margin: 0px; }
 .navbar-right { padding-right: 30px; }
 .munin_plugin { position: relative; white-space: nowrap; overflow: visible; }
