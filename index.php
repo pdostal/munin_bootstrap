@@ -20,20 +20,23 @@
 <?php
   foreach ($config['url'] as $url) {
     $i = 0;
+    $j = 0;
     foreach ($config['service'] as $service) {
       if ($i==0) echo "\t\t<div class='row'>\n";
       echo "\t\t\t<div class='col-md-4 munin_plugin'>\n";
-      echo "\t\t\t\t<h2>".$service."</h2>\n";
+      echo "\t\t\t\t<h2>".$service['name']."</h2>\n";
       foreach ($config['time'] as $time) {
-        echo "\t\t\t\t<img src='".$url."/".$service."-".$time.".png' alt='' />\n";
+        echo "\t\t\t\t<img src='".$url."/".$service['id']."-".$time.".png' alt='' />\n";
       }
       echo "\t\t\t</div>\n";
-      if ( $i == 2 || $i == count($config['service'])-1 ) {
+      if ( $i == 2 || $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
         echo "\t\t</div>\n";
         $i = 0;
       } else {
         $i++;
       }
+      if ( $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) echo "\t\t<hr />\n";
+      $j++;
     }
   }
 ?>
