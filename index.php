@@ -54,7 +54,7 @@
 <?php
   $i = 0;
   foreach ($config['group'] as $group) {
-    echo "<li><a href='#section".$i."'>".$group."</a></li>\n";
+    echo "\t\t\t<li><a href='#section".$i."'>".$group."</a></li>\n";
     $i++;
   }
 ?>
@@ -74,24 +74,24 @@
       if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
         $rand = randomColors(array('AAAAAA', 'BBBBBB', 'CCCCCC', 'DDDDDD', 'EEEEEE'));
         echo "\t\t<section id='section".$service['group']."' style='background-color: ".$rand[0]."; color: ".$rand[1].";'>\n";
-        echo "\t\t<div class='container'>\n";
+        echo "\t\t\t<div class='container'>\n";
       }
-      if ($i==0) echo "\t\t<div class='row'>\n";
-      echo "\t\t\t<div class='col-md-4 munin_plugin'>\n";
-      echo "\t\t\t\t<h2 style='color: ".$rand[1].";'>".$service['name']."</h2>\n";
+      if ($i==0) echo "\t\t\t\t<div class='row'>\n";
+      echo "\t\t\t\t\t<div class='col-md-4 munin_plugin'>\n";
+      echo "\t\t\t\t\t\t<h2 style='color: ".$rand[1].";'>".$service['name']."</h2>\n";
       foreach ($config['time'] as $time) {
-        echo "\t\t\t\t<img src='".$url."/".$service['id']."-".$time.".png' alt='' />\n";
+        echo "\t\t\t\t\t\t<img src='".$url."/".$service['id']."-".$time.".png' alt='' />\n";
       }
-      echo "\t\t\t</div>\n";
+      echo "\t\t\t\t\t</div>\n";
       if ( $i == 2 || $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
-        echo "\t\t</div>\n";
+        echo "\t\t\t\t</div>\n";
         $i = 0;
       } else {
         $i++;
       }
       if ( $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
-        echo "\t\t<hr />\n";
-        echo "\t\t</div>\n";
+        echo "\t\t\t\t<hr />\n";
+        echo "\t\t\t</div>\n";
         echo "\t\t</section>\n";
       }
       $j++;
@@ -99,7 +99,7 @@
   }
 ?>
     <footer class='container'>
-      <span>Source: <a href='<?php echo $config['url']; ?>'>Munin</a>
+      <span>Source: <a href='<?php echo $config['url']; ?>'>Munin</a></span>
     </footer>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
