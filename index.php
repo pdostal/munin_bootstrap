@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Munin template</title>
+    <title>Munin graphs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/lightbox.css" rel="stylesheet" />
@@ -22,7 +22,7 @@
     <![endif]-->
   </head>
   <body>
-    <nav class='navbar navbar-default navbar-fixed-top' role='navigation'>
+    <nav id='header' class='navbar navbar-default navbar-fixed-top' role='navigation'>
       <div class='navbar-header'>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
@@ -30,9 +30,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <h1 class='navbar-brand'><?php echo gethostname(); ?></h1>
+        <h1 class='navbar-brand'>Munin graphs</h1>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -42,7 +41,7 @@
 <?php
   $i = 0;
   foreach ($config['group'] as $group) {
-    echo "\t\t\t<li><a class='scroll' data-speed='300' data-easing='easeInOutCubic' href='#category".$i."'>".$group."</a></li>\n";
+    echo "\t\t\t<li><a href='#category".$i."' class='scroll' data-speed='300' data-easing='easeInOutCubic' >".$group."</a></li>\n";
     $i++;
   }
 ?>
@@ -50,9 +49,8 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-arrow-up"></span></a></li>
+          <li><a href='#header' class='scroll' data-speed='300' data-easing='easeInOutCubic'><span class="glyphicon glyphicon-arrow-up"></span></a></li>
         </ul>
-    </div>
   </nav>
 <?php
   foreach ($config['url'] as $url) {
@@ -86,7 +84,18 @@
   }
 ?>
     <footer class='container'>
-      <span>Source: <a href='<?php echo $config['url']; ?>'>Munin</a></span>
+      <span><a href='http://getbootstrap.com/'>Twitter Bootstrap</a> by <a href='http://twitter.com/mdo'>mdo</a> &amp; <a href='http://twitter.com/fat'>fat</a> under <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License v2.0</a></span>
+      <br />
+      <span><a href='http://jquery.com'>jQuery</a> under <a href='http://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt'>MIT License</a></span> |
+      <span><a href='http://www.php.net'>PHP</a> under <a href='http://www.php.net/license/3_01.txt'>PHP License v3.01</a></span>
+      <br />
+      <span><a href='http://munin-monitoring.org'>Munin</a></span> |
+      <span><a href='http://oss.oetiker.ch/rrdtool/'>RRDtool</a> &copy; <a href='mailto:tobi@oetiker.ch'>Tobi Oetiker</a> under <a href='http://www.gnu.org/licenses/gpl-3.0.txt'>GNU GPL License</a></span>
+      <br />
+      <span><a href='http://lokeshdhakar.com/projects/lightbox2/'>Lightbox 2</a> (<a href='http://creativecommons.org/licenses/by/2.5/'>CC BY 2.5</a>)</span> |
+      <span><a href='http://www.appelsiini.net/projects/lazyload'>Lazy load</a> under <a href='http://www.opensource.org/licenses/mit-license.php'>MIT License</a></span>
+      <br />
+      <span><a href='http://cferdinandi.github.io/smooth-scroll/'>Smooth scroll</a> under <a href='http://gomakethings.com/mit/'>MIT License</a></span>
     </footer>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
