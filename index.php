@@ -33,19 +33,24 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Categories <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
 <?php
   $i = 0;
   foreach ($config['group'] as $group) {
-    echo "\t\t\t<li><a href='#sensor".$i."'>".$group."</a></li>\n";
+    echo "\t\t\t<li><a class='scroll' data-speed='300' data-easing='easeInOutCubic' href='#category".$i."'>".$group."</a></li>\n";
     $i++;
   }
 ?>
+            </ul>
+            </li>
         </ul>
-        <div class="nav navbar-nav navbar-right">
-          <div class="navbar-text"><span>Uptime: </span><span><?php echo $uptime; ?></span></div>
-          <div class="navbar-text"><span>Uname: </span><span><?php echo $uname; ?></span></div>
-          <div class="navbar-text"><span>Load: </span><span><?php echo $load; ?></span></div>
-        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-arrow-up"></span></a></li>
+        </ul>
     </div>
   </nav>
 <?php
@@ -54,7 +59,7 @@
     $j = 0;
     foreach ($config['service'] as $service) {
       if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
-        echo "\t\t<section class='sensor' id='sensor".$service['group']."'>\n";
+        echo "\t\t<section class='category' id='category".$service['group']."'>\n";
         echo "\t\t\t<div class='container'>\n";
       }
       if ($i==0) echo "\t\t\t\t<div class='row'>\n";
@@ -84,5 +89,6 @@
     </footer>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/smooth-scroll.js"></script>
   </body>
 </html>

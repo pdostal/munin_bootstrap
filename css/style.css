@@ -1,9 +1,8 @@
 body { padding-top: 50px; }
-.navbar { max-height: 50px; overflow: hidden; }
 h1.navbar-brand { margin: 0px; }
 .navbar-right { padding-right: 30px; }
 .munin_plugin { position: relative; white-space: nowrap; overflow: visible; }
 .graph_wrapper { display: inline-block; width: 22%; height: 50px; position: relative; overflow: hidden; }
 .graph_wrapper img { width: 100%; height: 50px; }
-.sensor { background-color: #F0F0F0; }
-.sensor h2 { font-size: 14px; }
+.category { background-color: #F0F0F0; }
+.category h2 { font-size: 14px; }
