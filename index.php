@@ -14,6 +14,7 @@
     <title>Munin template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lightbox.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -66,7 +67,7 @@
       echo "\t\t\t\t\t<div class='col-md-4 munin_plugin'>\n";
       echo "\t\t\t\t\t\t<h2>".$service['name']."</h2>\n";
       foreach ($config['time'] as $time) {
-        echo "\t\t\t\t\t\t<div class='graph_wrapper'><img src='".$url."/".$service['id']."-".$time.".png' alt='' /></div>\n";
+        echo "\t\t\t\t\t\t<a href='".$url.$service['id']."-".$time.".png' class='graph_wrapper' data-lightbox='".$service['id']."' title='".$service['name']." last ".$time."'><img src='".$url.$service['id']."-".$time.".png' alt='".$service['name']." last ".$time."' /></a>\n";
       }
       echo "\t\t\t\t\t</div>\n";
       if ( $i == 2 || $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
@@ -90,5 +91,6 @@
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/smooth-scroll.js"></script>
+    <script src="js/lightbox.min.js"></script>
   </body>
 </html>
