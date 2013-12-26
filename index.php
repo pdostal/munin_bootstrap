@@ -67,7 +67,7 @@
       echo "\t\t\t\t\t<div class='col-md-4 munin_plugin'>\n";
       echo "\t\t\t\t\t\t<h2>".$service['name']."</h2>\n";
       foreach ($config['time'] as $time) {
-        echo "\t\t\t\t\t\t<a href='".$url.$service['id']."-".$time.".png' class='graph_wrapper' data-lightbox='".$service['id']."' title='".$service['name']." last ".$time."'><img src='".$url.$service['id']."-".$time.".png' alt='".$service['name']." last ".$time."' /></a>\n";
+        echo "\t\t\t\t\t\t<a href='".$url.$service['id']."-".$time.".png' class='graph_wrapper' data-lightbox='".$service['id']."' title='".$service['name']." last ".$time."'><img class='lazy' src='' data-src='".$url.$service['id']."-".$time.".png' alt='".$service['name']." last ".$time."' /></a>\n";
       }
       echo "\t\t\t\t\t</div>\n";
       if ( $i == 2 || $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
@@ -92,5 +92,11 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/smooth-scroll.js"></script>
     <script src="js/lightbox.min.js"></script>
+    <script src="js/lazy.min.js"></script>
+    <script>
+      jQuery(document).ready(function() {
+        jQuery("img.lazy").lazy();
+      });
+    </script>
   </body>
 </html>
