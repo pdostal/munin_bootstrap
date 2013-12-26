@@ -80,7 +80,7 @@
       echo "\t\t\t\t\t<div class='col-md-4 munin_plugin'>\n";
       echo "\t\t\t\t\t\t<h2 style='color: ".$rand[1].";'>".$service['name']."</h2>\n";
       foreach ($config['time'] as $time) {
-        echo "\t\t\t\t\t\t<img src='".$url."/".$service['id']."-".$time.".png' alt='' />\n";
+        echo "\t\t\t\t\t\t<div class='graph_wrapper'><img src='".$url."/".$service['id']."-".$time.".png' alt='' /></div>\n";
       }
       echo "\t\t\t\t\t</div>\n";
       if ( $i == 2 || $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {

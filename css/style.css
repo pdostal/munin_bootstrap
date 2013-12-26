@@ -3,4 +3,5 @@ body { padding-top: 50px; }
 h1.navbar-brand { margin: 0px; }
 .navbar-right { padding-right: 30px; }
 .munin_plugin { position: relative; white-space: nowrap; overflow: visible; }
-.munin_plugin img { width: 22%; }
+.graph_wrapper { display: inline-block; width: 22%; height: 50px; position: relative; overflow: hidden; }
+.graph_wrapper img { width: 100%; }
