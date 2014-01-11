@@ -68,26 +68,28 @@
   foreach ($config['url'] as $url) {
     $i = 0;
     $j = 0;
+    echo "\t\t<div class='server'>\n";
     foreach ($config['service'] as $service) {
       if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
-        echo "\t\t<section class='category' id='category".$service['group']."'>\n";
-        echo "\t\t\t<div class='container'>\n";
-        echo "\t\t\t\t<h1>".$config['group'][$i]."</h1>\n";
+        echo "\t\t\t<section class='category' id='category".$service['group']."'>\n";
+        echo "\t\t\t\t<div class='container'>\n";
+        echo "\t\t\t\t\t<h1>".$config['group'][$i]."</h1>\n";
       }
-      echo "\t\t\t\t\t<div class='row'>\n";
-      echo "\t\t\t\t\t\t<h2>".$service['name']."</h2>\n";
+      echo "\t\t\t\t\t\t<div class='row'>\n";
+      echo "\t\t\t\t\t\t\t<h2>".$service['name']."</h2>\n";
       foreach ($config['time'] as $time) {
-        echo "\t\t\t\t\t\t<a href='".$url.$service['id']."-".$time.".png' class='graph_wrapper col-md-4' data-lightbox='".$service['id']."' title='".$service['name']." last ".$time."'><img class='lazy' src='' data-src='".$url.$service['id']."-".$time.".png' alt='".$service['name']." last ".$time."' /></a>\n";
+        echo "\t\t\t\t\t\t\t<a href='".$url['url'].$service['id']."-".$time.".png' class='graph_wrapper col-md-4' data-lightbox='".$service['id']."' title='".$service['name']." last ".$time."'><img class='lazy' src='' data-src='".$url['url'].$service['id']."-".$time.".png' alt='".$service['name']." last ".$time."' /></a>\n";
       }
-      echo "\t\t\t\t\t</div>\n";
+      echo "\t\t\t\t\t\t</div>\n";
       if ( $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
-        echo "\t\t\t\t<hr />\n";
-        echo "\t\t\t</div>\n";
-        echo "\t\t</section>\n";
+        echo "\t\t\t\t\t<hr />\n";
+        echo "\t\t\t\t</div>\n";
+        echo "\t\t\t</section>\n";
         $i++;
       }
       $j++;
     }
+    echo "\t\t</div>\n";
   }
 ?>
     <footer class='container'>
