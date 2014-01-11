@@ -28,6 +28,7 @@
     <script>
       jQuery(document).ready(function() {
         jQuery("img.lazy").lazy();
+        $('a').smoothScroll();
       });
     </script>
     <script>
@@ -38,6 +39,10 @@
     echo "\t\t\t\t$('#menu-server".$i."').click(function() {\n";
     echo "\t\t\t\t\t$('.server').css('display', 'none');\n";
     echo "\t\t\t\t\t$('#server".$i."').css('display', 'block');\n";
+    echo "\t\t\t\t\t$('.menu-category').css('display', 'none');\n";
+    echo "\t\t\t\t\t$('.menu-category-server".$k."').css('display', 'block');\n";
+    //echo "\t\t\t\t\t$('body').scrollTo(1);\n";
+    echo "\t\t\t\t\t$(window).trigger('scroll');\n";
     echo "\t\t\t\t});\n";
     $i++;
   }
@@ -46,7 +51,7 @@
     </script>
   </head>
   <body>
-    <nav id='header' class='navbar navbar-default navbar-fixed-top' role='navigation'>
+    <nav id='header' class='navbar navbar-default navbar-fixed-top scroll-header' role='navigation'>
       <div class='navbar-header'>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -66,7 +71,7 @@
 <?php
   $i = 0;
   foreach ($config['url'] as $url) {
-    echo "\t\t\t\t<li><a href='javascript:;' class='scroll menu-server' id='menu-server".$i."' data-speed='300' data-easing='easeInOutCubic' >".$url['name']."</a></li>\n";
+    echo "\t\t\t\t<li><a href='javascript:;' class='scroll menu-server' id='menu-server".$i."' data-speed='300' data-easing='easeInOutCubic' data-url='false'>".$url['name']."</a></li>\n";
     $i++;
   }
 ?>
@@ -80,7 +85,13 @@
 <?php
   $i = 0;
   foreach ($config['group'] as $group) {
-    echo "\t\t\t\t<li><a href='#category".$i."' class='scroll' data-speed='300' data-easing='easeInOutCubic' >".$group."</a></li>\n";
+    $k = 0;
+    foreach ($config['url'] as $url) {
+      if ($k != 0) $style = 'display: none;';
+      echo "\t\t\t\t<li><a href='#server".$k."category".$i."' id='menu-category".$i."-server".$k."' class='scroll menu-category menu-category-server".$k."' data-speed='300' data-easing='easeInOutCubic' style='".$style."'>".$group."</a></li>\n";
+      unset($style);
+      $k++;
+    }
     $i++;
   }
 ?>
@@ -97,12 +108,12 @@
   foreach ($config['url'] as $url) {
     $i = 0;
     $j = 0;
-    if ($k == 1) $style = 'display: none;';
-    echo "\t\t<div class='server' id='server".$k."' style='".$message."'>\n";
+    if ($k != 0) $style = 'display: none;';
+    echo "\t\t<div class='server' id='server".$k."' style='".$style."'>\n";
     unset($style);
     foreach ($config['service'] as $service) {
       if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
-        echo "\t\t\t<section class='category' id='category".$service['group']."'>\n";
+        echo "\t\t\t<section class='category' id='server".$k."category".$service['group']."'>\n";
         echo "\t\t\t\t<div class='container'>\n";
         echo "\t\t\t\t\t<h1>".$config['group'][$i]."</h1>\n";
       }
