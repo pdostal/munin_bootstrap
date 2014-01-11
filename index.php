@@ -30,6 +30,20 @@
         jQuery("img.lazy").lazy();
       });
     </script>
+    <script>
+<?php
+  echo "\t\t\t$(function(){\n";
+  $i = 0;
+  foreach ($config['url'] as $url) {
+    echo "\t\t\t\t$('#menu-server".$i."').click(function() {\n";
+    echo "\t\t\t\t\t$('.server').css('display', 'none');\n";
+    echo "\t\t\t\t\t$('#server".$i."').css('display', 'block');\n";
+    echo "\t\t\t\t});\n";
+    $i++;
+  }
+  echo "\t\t\t});\n";
+?>  
+    </script>
   </head>
   <body>
     <nav id='header' class='navbar navbar-default navbar-fixed-top' role='navigation'>
@@ -44,6 +58,20 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Servers <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+<?php
+  $i = 0;
+  foreach ($config['url'] as $url) {
+    echo "\t\t\t\t<li><a href='javascript:;' class='scroll menu-server' id='menu-server".$i."' data-speed='300' data-easing='easeInOutCubic' >".$url['name']."</a></li>\n";
+    $i++;
+  }
+?>
+            </ul>
+          </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
               Categories <span class="caret"></span>
@@ -65,10 +93,13 @@
       </div>
     </nav>
 <?php
+  $k = 0;
   foreach ($config['url'] as $url) {
     $i = 0;
     $j = 0;
-    echo "\t\t<div class='server'>\n";
+    if ($k == 1) $style = 'display: none;';
+    echo "\t\t<div class='server' id='server".$k."' style='".$message."'>\n";
+    unset($style);
     foreach ($config['service'] as $service) {
       if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
         echo "\t\t\t<section class='category' id='category".$service['group']."'>\n";
@@ -90,6 +121,7 @@
       $j++;
     }
     echo "\t\t</div>\n";
+    $k++;
   }
 ?>
     <footer class='container'>
