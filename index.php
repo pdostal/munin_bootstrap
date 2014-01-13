@@ -25,30 +25,7 @@
     <script src="js/smooth-scroll.js"></script>
     <script src="js/lightbox.min.js"></script>
     <script src="js/lazy.min.js"></script>
-    <script>
-      jQuery(document).ready(function() {
-        jQuery("img.lazy").lazy();
-        $('a').smoothScroll();
-      });
-    </script>
-    <script>
-<?php
-  echo "\t\t\t$(function(){\n";
-  $i = 0;
-  foreach ($config['url'] as $url) {
-    echo "\t\t\t\t$('#menu-server".$i."').click(function() {\n";
-    echo "\t\t\t\t\t$('.server').css('display', 'none');\n";
-    echo "\t\t\t\t\t$('#server".$i."').css('display', 'block');\n";
-    echo "\t\t\t\t\t$('.menu-category').css('display', 'none');\n";
-    echo "\t\t\t\t\t$('.menu-category-server".$k."').css('display', 'block');\n";
-    //echo "\t\t\t\t\t$('body').scrollTo(1);\n";
-    echo "\t\t\t\t\t$(window).trigger('scroll');\n";
-    echo "\t\t\t\t});\n";
-    $i++;
-  }
-  echo "\t\t\t});\n";
-?>  
-    </script>
+    <script src="js/script.js"></script>
   </head>
   <body>
     <nav id='header' class='navbar navbar-default navbar-fixed-top scroll-header' role='navigation'>
@@ -71,7 +48,7 @@
 <?php
   $i = 0;
   foreach ($config['url'] as $url) {
-    echo "\t\t\t\t<li><a href='javascript:;' class='scroll menu-server' id='menu-server".$i."' data-speed='300' data-easing='easeInOutCubic' data-url='false'>".$url['name']."</a></li>\n";
+    echo "\t\t\t\t<li><a href='javascript:;' class='scroll menu-server' data-server='server".$i."' data-speed='300' data-easing='easeInOutCubic' data-url='false'>".$url['name']."</a></li>\n";
     $i++;
   }
 ?>
@@ -88,7 +65,7 @@
     $k = 0;
     foreach ($config['url'] as $url) {
       if ($k != 0) $style = 'display: none;';
-      echo "\t\t\t\t<li><a href='#server".$k."category".$i."' id='menu-category".$i."-server".$k."' class='scroll menu-category menu-category-server".$k."' data-speed='300' data-easing='easeInOutCubic' style='".$style."'>".$group."</a></li>\n";
+      echo "\t\t\t\t<li><a href='javascript:;' id='menu-category".$i."-server".$k."' class='scroll menu-category menu-category-server".$k."' data-category='server".$k."category".$i."' data-speed='300' data-easing='easeInOutCubic' style='".$style."'>".$group."</a></li>\n";
       unset($style);
       $k++;
     }
