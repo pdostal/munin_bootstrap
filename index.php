@@ -25,10 +25,14 @@
     <script src="js/smooth-scroll.js"></script>
     <script src="js/lightbox.min.js"></script>
     <script src="js/lazy.min.js"></script>
-    <script src="js/script.js"></script>
+    <script>
+      jQuery(document).ready(function() {
+        jQuery("img.lazy").lazy();
+      });
+    </script>
   </head>
-  <body>
-    <nav id='header' class='navbar navbar-default navbar-fixed-top scroll-header' role='navigation'>
+  <body id="body">
+    <nav class='navbar navbar-default navbar-fixed-top scroll-header' role='navigation'>
       <div class='navbar-header'>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -45,13 +49,9 @@
               Servers <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-<?php
-  $i = 0;
-  foreach ($config['url'] as $url) {
-    echo "\t\t\t\t<li><a href='javascript:;' class='scroll menu-server' data-server='server".$i."' data-speed='300' data-easing='easeInOutCubic' data-url='false'>".$url['name']."</a></li>\n";
-    $i++;
-  }
-?>
+              <?php $i = 0; foreach ($config['url'] as $url) { ?>
+              <li><a href='#server<?php echo $i; ?>' class='menu-server' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $url['name']; ?></a></li>
+              <?php $i++; } ?>
             </ul>
           </li>
           <li class="dropdown">
@@ -59,59 +59,42 @@
               Categories <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-<?php
-  $i = 0;
-  foreach ($config['group'] as $group) {
-    $k = 0;
-    foreach ($config['url'] as $url) {
-      if ($k != 0) $style = 'display: none;';
-      echo "\t\t\t\t<li><a href='javascript:;' id='menu-category".$i."-server".$k."' class='scroll menu-category menu-category-server".$k."' data-category='server".$k."category".$i."' data-speed='300' data-easing='easeInOutCubic' style='".$style."'>".$group."</a></li>\n";
-      unset($style);
-      $k++;
-    }
-    $i++;
-  }
-?>
+              <?php $k = 0; foreach ($config['url'] as $url) { $i = 0; foreach ($config['group'] as $group) { ?>
+              <li><a href='<?php echo '#server'.$k.'-category'.$i; ?>' class='scroll menu-category' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $group; ?></a></li>
+              <?php $i++; } $k++; } ?>
             </ul>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href='#header' class='scroll' data-speed='300' data-easing='easeInOutCubic'><span class="glyphicon glyphicon-arrow-up"></span></a></li>
+          <li><a href='#body' class='scroll' data-speed='300' data-easing='easeInOutCubic'><span class="glyphicon glyphicon-arrow-up"></span></a></li>
         </ul>
       </div>
     </nav>
+    <?php $k = 0; foreach ($config['url'] as $url) { $i = 0; $j = 0; ?>
+    <article class='server' id='server<?php echo $k; ?>'>
 <?php
-  $k = 0;
-  foreach ($config['url'] as $url) {
-    $i = 0;
-    $j = 0;
-    if ($k != 0) $style = 'display: none;';
-    echo "\t\t<div class='server' id='server".$k."' style='".$style."'>\n";
-    unset($style);
-    foreach ($config['service'] as $service) {
-      if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
-        echo "\t\t\t<section class='category' id='server".$k."category".$service['group']."'>\n";
-        echo "\t\t\t\t<div class='container'>\n";
-        echo "\t\t\t\t\t<h1>".$config['group'][$i]."</h1>\n";
-      }
-      echo "\t\t\t\t\t\t<div class='row'>\n";
-      echo "\t\t\t\t\t\t\t<h2>".$service['name']."</h2>\n";
-      foreach ($config['time'] as $time) {
-        echo "\t\t\t\t\t\t\t<a href='".$url['url'].$service['id']."-".$time.".png' class='graph_wrapper col-md-4' data-lightbox='".$service['id']."' title='".$service['name']." last ".$time."'><img class='lazy' src='' data-src='".$url['url'].$service['id']."-".$time.".png' alt='".$service['name']." last ".$time."' /></a>\n";
-      }
-      echo "\t\t\t\t\t\t</div>\n";
-      if ( $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) {
-        echo "\t\t\t\t\t<hr />\n";
-        echo "\t\t\t\t</div>\n";
-        echo "\t\t\t</section>\n";
-        $i++;
-      }
-      $j++;
-    }
-    echo "\t\t</div>\n";
-    $k++;
-  }
+  unset($style);
+  foreach ($config['service'] as $service) {
+    if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
 ?>
+      <section id='server<?php echo $k; ?>-category<?php echo $service['group']; ?>' class='category category<?php echo $service['group']; ?>'>
+        <div class='container'>
+          <h1><?php echo $config['group'][$i]; ?></h1>
+    <?php } ?>
+          <div class='row'>
+            <h2><?php echo $service['name']; ?></h2>
+    <?php foreach ($config['time'] as $time) { ?>
+            <a href='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' class='graph_wrapper col-md-4' data-lightbox='<?php echo $service['id']; ?>' title='<?php echo $service['name']; ?> last <?php echo $time; ?>'><img class='lazy' src='' data-src='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' alt='<?php echo $service['name'].' last '.$time; ?>' /></a>
+    <?php } ?>
+          </div>
+    <?php if ( $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) { ?>
+          <hr />
+        </div>
+      </section>
+    <?php $i++; } ?>
+  <?php $j++; } ?>
+    </article>
+<?php $k++; } ?>
     <footer class='container'>
       <span>
         <a href='http://getbootstrap.com/'>Bootstrap</a>
