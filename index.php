@@ -49,9 +49,10 @@
               Servers <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <?php $i = 0; foreach ($config['url'] as $url) { ?>
-              <li><a href='#server<?php echo $i; ?>' class='menu-server' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $url['name']; ?></a></li>
-              <?php $i++; } ?>
+              <li><a href='#server0' class='menu-server' data-speed='300' data-easing='easeInOutCubic' data-url='false'>All</a></li>
+              <?php $m1 = 1; foreach ($config['url'] as $url) { ?>
+              <li><a href='#server<?php echo $m1; ?>' class='menu-server' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $url['name']; ?></a></li>
+              <?php $m1++; } ?>
             </ul>
           </li>
           <li class="dropdown">
@@ -59,9 +60,9 @@
               Categories <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <?php $k = 0; foreach ($config['url'] as $url) { $i = 0; foreach ($config['group'] as $group) { ?>
-              <li><a href='<?php echo '#server'.$k.'-category'.$i; ?>' class='scroll menu-category' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $group; ?></a></li>
-              <?php $i++; } $k++; } ?>
+              <?php $m21 = 1; foreach ($config['url'] as $url) { $m22 = 0; foreach ($config['group'] as $group) { ?>
+              <li><a href='<?php echo '#server'.$m21.'-category'.$m22; ?>' class='scroll menu-category' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $group; ?></a></li>
+              <?php $m22++; } $m21++; } ?>
             </ul>
           </li>
         </ul>
@@ -70,31 +71,45 @@
         </ul>
       </div>
     </nav>
-    <?php $k = 0; foreach ($config['url'] as $url) { $i = 0; $j = 0; ?>
-    <article class='server' id='server<?php echo $k; ?>'>
-<?php
-  unset($style);
-  foreach ($config['service'] as $service) {
-    if ( $config['service'][$j]['group'] !== $config['service'][$j-1]['group'] ) {
-?>
-      <section id='server<?php echo $k; ?>-category<?php echo $service['group']; ?>' class='category category<?php echo $service['group']; ?>'>
+    <article class='server' id='server0'>
+      <?php unset($style); $l1 = 0; foreach ($config['service'] as $service) { if ( $config['service'][$l1]['group'] !== $config['service'][$l1-1]['group'] ) { ?>
+      <section id='server0-category<?php echo $service['group']; ?>' class='category category<?php echo $service['group']; ?>'>
         <div class='container'>
-          <h1><?php echo $config['group'][$i]; ?></h1>
-    <?php } ?>
+          <h1><?php echo $config['group'][$service['group']]; ?></h1>
+        <?php } $l2 = 1; foreach ($config['url'] as $url) { ?>
           <div class='row'>
-            <h2><?php echo $service['name']; ?></h2>
-    <?php foreach ($config['time'] as $time) { ?>
+            <h2><?php echo $url['name']."s ".$service['name']; ?></h2>
+            <?php foreach ($config['time'] as $time) { ?>
             <a href='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' class='graph_wrapper col-md-4' data-lightbox='<?php echo $service['id']; ?>' title='<?php echo $service['name']; ?> last <?php echo $time; ?>'><img class='lazy' src='' data-src='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' alt='<?php echo $service['name'].' last '.$time; ?>' /></a>
-    <?php } ?>
+            <?php } ?>
           </div>
-    <?php if ( $config['service'][$j]['group'] !== $config['service'][$j+1]['group'] ) { ?>
+      <?php $l2++; } if ( $config['service'][$l1]['group'] !== $config['service'][$l1+1]['group'] ) { ?>
           <hr />
         </div>
       </section>
-    <?php $i++; } ?>
-  <?php $j++; } ?>
+      <?php } $l1++; } ?>
     </article>
-<?php $k++; } ?>
+    <?php $k1 = 1; foreach ($config['url'] as $url) { ?>
+    <article class='server' id='server<?php echo $k1; ?>'>
+      <h1><?php echo $url['name']; ?></h1>
+      <?php unset($style); $k2 = 0; foreach ($config['service'] as $service) { if ( $config['service'][$k2]['group'] !== $config['service'][$k2-1]['group'] ) { ?>
+      <section id='server<?php echo $k1; ?>-category<?php echo $service['group']; ?>' class='category category<?php echo $service['group']; ?>'>
+        <div class='container'>
+          <h2><?php echo $config['group'][$service['group']]; ?></h2>
+      <?php } ?>
+          <div class='row'>
+            <h3><?php echo $service['name']; ?></h3>
+            <?php foreach ($config['time'] as $time) { ?>
+            <a href='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' class='graph_wrapper col-md-4' data-lightbox='<?php echo $service['id']; ?>' title='<?php echo $service['name']; ?> last <?php echo $time; ?>'><img class='lazy' src='' data-src='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' alt='<?php echo $service['name'].' last '.$time; ?>' /></a>
+            <?php } ?>
+          </div>
+      <?php if ( $config['service'][$k2]['group'] !== $config['service'][$k2+1]['group'] ) { ?>
+          <hr />
+        </div>
+      </section>
+      <?php } $k2++; } ?>
+    </article>
+    <?php $k1++; } ?>
     <footer class='container'>
       <span>
         <a href='http://getbootstrap.com/'>Bootstrap</a>
