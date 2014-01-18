@@ -1,6 +1,7 @@
 body { padding-top: 50px; }
 h1.navbar-brand { margin: 0px; }
 .navbar-right { padding-right: 30px; }
+.dropdown-menu h1 { font-size: 1em; margin: 0px 0px 0px 15px; }
 .server h1 { text-align: center; font-weight: bold; font-variant: small-caps; }
 .row h3 { padding-left: 30px; }
 .munin_plugin { position: relative; white-space: nowrap; overflow: visible; }

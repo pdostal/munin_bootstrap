@@ -60,7 +60,9 @@
               Categories <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <?php $m21 = 1; foreach ($config['url'] as $url) { $m22 = 0; foreach ($config['group'] as $group) { ?>
+              <?php $m21 = 1; foreach ($config['url'] as $url) { ?>
+              <li><h1><?php echo $url['name']; ?></h1></li>
+              <?php $m22 = 0; foreach ($config['group'] as $group) { ?>
               <li><a href='<?php echo '#server'.$m21.'-category'.$m22; ?>' class='scroll menu-category' data-speed='300' data-easing='easeInOutCubic' data-url='false'><?php echo $group; ?></a></li>
               <?php $m22++; } $m21++; } ?>
             </ul>
@@ -75,10 +77,10 @@
       <?php unset($style); $l1 = 0; foreach ($config['service'] as $service) { if ( $config['service'][$l1]['group'] !== $config['service'][$l1-1]['group'] ) { ?>
       <section id='server0-category<?php echo $service['group']; ?>' class='category category<?php echo $service['group']; ?>'>
         <div class='container'>
-          <h1><?php echo $config['group'][$service['group']]; ?></h1>
+          <h2><?php echo $config['group'][$service['group']]; ?></h2>
         <?php } $l2 = 1; foreach ($config['url'] as $url) { ?>
           <div class='row'>
-            <h2><?php echo $url['name']."s ".$service['name']; ?></h2>
+            <h3><?php echo $url['name']."s ".$service['name']; ?></h3>
             <?php foreach ($config['time'] as $time) { ?>
             <a href='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' class='graph_wrapper col-md-4' data-lightbox='<?php echo $service['id']; ?>' title='<?php echo $service['name']; ?> last <?php echo $time; ?>'><img class='lazy' src='' data-src='<?php echo $url['url'].$service['id'].'-'.$time.'.png'; ?>' alt='<?php echo $service['name'].' last '.$time; ?>' /></a>
             <?php } ?>
